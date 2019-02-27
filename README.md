@@ -1,0 +1,2 @@
+# xorfuscator
+XOR-based Obfuscator
