@@ -20,7 +20,10 @@ func Test_RoundTrip_1(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		dexored := DeXORFuscate(i, xored)
+		dexored, err := DeXORFuscate(i, xored)
+		if err != nil {
+			t.Fatal(err)
+		}
 
 		t.Logf("\n%x \n== \n%x\n", payload, dexored)
 

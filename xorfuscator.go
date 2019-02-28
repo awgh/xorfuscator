@@ -30,17 +30,19 @@ func XORFuscate(keyLen int, input []byte) ([]byte, error) {
 }
 
 // DeXORFuscate - DeScrambles some bytes in a non-cryptographic & insecure manner
-func DeXORFuscate(keyLen int, input []byte) []byte {
+func DeXORFuscate(keyLen int, input []byte) ([]byte, error) {
+	if keyLen < 1 {
+		return nil, errors.New("keyLen must be greater than zero")
+	}
 	key := input[:keyLen]
 	body := input[keyLen:]
-	output := make([]byte, len(body))
 	keyIndex := 0
 	for i := range body {
-		output[i] = key[keyIndex] ^ body[i]
+		body[i] = key[keyIndex] ^ body[i]
 		keyIndex++
 		if keyIndex >= len(key) {
 			keyIndex = 0
 		}
 	}
-	return output
+	return body, nil
 }
